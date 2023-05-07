@@ -1,0 +1,24 @@
+name: Debug
+
+on:
+  push:
+    tags:
+      - "*"
+    branches:
+      - main
+  pull_request_target:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  debug:
+    name: Debug context
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
